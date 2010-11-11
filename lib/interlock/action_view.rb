@@ -81,17 +81,14 @@ See ActionController::Base for explanations of the rest of the options. The <tt>
       # Override content_for so we can cache the instance variables it sets along with the fragment.
       #
       def content_for(name, content = nil, &block)
-        ivar = "@content_for_#{name}"
-        existing_content = instance_variable_get(ivar).to_s
-        this_content = (block_given? ? capture(&block) : content)
-        
+        content = capture(&block) if block_given?
+        @_content_for[name] << content if content
         # If we are in a view_cache block, cache what we added to this instance variable
         if @cached_content_for
           @cached_content_for[name] = "#{@cached_content_for[name]}#{this_content}"
         end
-        
-        instance_variable_set(ivar, existing_content + this_content)
-      end    
+        @_content_for[name] unless content
+      end
     end
 
   end
