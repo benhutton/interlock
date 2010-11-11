@@ -218,7 +218,7 @@ And in the <tt>show.html.erb</tt> view:
               content.last.each do |name, value| 
                 raise Interlock::FragmentConsistencyError, "#{key}::content_for(:#{name}) expected String but got #{value.class}" unless value.is_a? String
                 # We'll just call the helper because that will handle nested view_caches properly.
-                @template.send(:content_for, name, value)
+                @template.send(:content_for, name, value.html_safe)
               end
             end
     
