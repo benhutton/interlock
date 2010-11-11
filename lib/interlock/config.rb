@@ -150,6 +150,8 @@ module Interlock
             else
               yield
             end
+
+            nil
           end
         end                
         ActionController::Base.cache_store = CACHE
