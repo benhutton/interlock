@@ -146,7 +146,7 @@ module Interlock
             if controller.perform_caching
               # Things explode if options does not default to nil
               Rails.logger.debug "** fragment #{name} stored via obsolete cache() call"
-              @controller.fragment_for(output_buffer, name, options, &block)
+              safe_concat(fragment_for(name, options, &block))
             else
               yield
             end
