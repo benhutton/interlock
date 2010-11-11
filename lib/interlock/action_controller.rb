@@ -225,7 +225,14 @@ And in the <tt>show.html.erb</tt> view:
           raise e
         end      
       end
-      
+
+      def fragment_exist?(key, options = nil)
+        return unless perform_caching
+
+        instrument_fragment_cache :exist_fragment?, key do
+          cache_store.exist?(key, options)
+        end
+      end 
     end
     
     # With Rails 2.1 action caching, we need to slip in our :expire param into the ActionCacheFilter options, so that when we 

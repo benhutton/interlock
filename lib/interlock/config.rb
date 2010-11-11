@@ -129,6 +129,10 @@ module Interlock
               content, 
               options.is_a?(Hash) ? options[:ttl] : Interlock.config[:ttl] )
           end
+
+          def exist?(*args)
+            read(*args)
+          end
         end
       end
       
