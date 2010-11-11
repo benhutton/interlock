@@ -85,7 +85,7 @@ See ActionController::Base for explanations of the rest of the options. The <tt>
         @_content_for[name] << content if content
         # If we are in a view_cache block, cache what we added to this instance variable
         if @cached_content_for
-          @cached_content_for[name] = "#{@cached_content_for[name]}#{this_content}"
+          @cached_content_for[name] = "#{@cached_content_for[name]}#{content}"
         end
         @_content_for[name] unless content
       end
