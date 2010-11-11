@@ -46,7 +46,7 @@ See ActionController::Base for explanations of the rest of the options. The <tt>
        
        if options[:perform] == false || Interlock.config[:disabled]
          # Interlock.say key, "is not cached"
-         block.call
+         with_output_buffer(&block)
        else       
          Interlock.register_dependencies(dependencies, key)
 
