@@ -1,7 +1,12 @@
 
 module ActionController #:nodoc:
   class Base
-  
+    # Need to fix something they broke in Rails 3.  When content_for fragment caching is added to Rails 3.1,
+    # this fix will be included.  We can probably re-write a significant portion of Interlock then.
+    # https://rails.lighthouseapp.com/projects/8994-ruby-on-rails/tickets/3409-content_for-and-fragment-caching
+    def view_context
+      @template ||= view_context_class.new(lookup_context, view_assigns, self)
+    end 
 
 =begin rdoc
 Build the fragment key from a particular context. This must be deterministic and stateful except for the tag. We can't scope the key to arbitrary params because the view doesn't have access to which are relevant and which are not.
